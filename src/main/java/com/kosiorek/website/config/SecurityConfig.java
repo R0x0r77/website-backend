@@ -33,7 +33,11 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**", "/error")
+                        .requestMatchers("/api/auth/**", "/error", "/api/*.html", "/*.html",
+                                "/", "/index.html",
+                                "/assets/**", "/favicon.ico",
+                                "/*.js", "/*.css", "/*.js", "/*.css", "/*.map",
+                                "/home", "/about", "/cv", "/technologies", "/boardgames", "/riddles")
                         .permitAll()
                         .anyRequest()
                         .authenticated()

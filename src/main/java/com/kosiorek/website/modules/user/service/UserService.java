@@ -32,16 +32,13 @@ public class UserService {
 
     @Transactional
     public List<User> findList() {
-        List<User> list = userRepository.findAll();
-        list.forEach(user -> user.setPassword(null));
-        return list;
+        return userRepository.findAll();
     }
 
     @Transactional
     public User findById(Integer id) {
         User user = userRepository.findById(id).orElse(null);
         if (user == null) throw new UsernameNotFoundException("User not found");
-        user.setPassword(null);
         return user;
     }
 
@@ -49,7 +46,6 @@ public class UserService {
     public User findByUsername(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
         if (user == null) throw new UsernameNotFoundException("User not found");
-        user.setPassword(null);
         return user;
     }
 
