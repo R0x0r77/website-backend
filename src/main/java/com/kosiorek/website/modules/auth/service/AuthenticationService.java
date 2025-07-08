@@ -8,6 +8,7 @@ import com.kosiorek.website.modules.auth.model.AuthenticationResponse;
 import com.kosiorek.website.modules.auth.model.RegisterRequest;
 import com.kosiorek.website.modules.user.model.User;
 import com.kosiorek.website.modules.user.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +28,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
 
+    @Transactional
     public AuthenticationResponse register(RegisterRequest request) throws UserAlreadyExistsException {
         User user = User.builder()
                 .username(request.getUsername())
@@ -41,6 +43,7 @@ public class AuthenticationService {
                 .build();
     }
 
+    @Transactional
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
